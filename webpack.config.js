@@ -1,10 +1,11 @@
-const HtmlWebpackPlugin = require('html-webpack-plugin');
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 
 module.exports = {
-  entry: './src/index.js',
+  entry: "./src/index.js",
   devtool: false,
   output: {
-    filename: 'bundle-[contenthash].js',
+    filename: "bundle-[contenthash].js",
   },
   devServer: {
     historyApiFallback: true,
@@ -16,20 +17,21 @@ module.exports = {
     rules: [
       {
         test: /\.(png|jpe?g|svg)$/,
-        type: 'asset/resource',
+        type: "asset/resource",
         generator: {
-          filename: 'img/[name]-[contenthash].[ext]'
+          filename: "img/[name]-[contenthash].[ext]",
         },
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader'],
+        use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
     ],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: 'src/index.html',
+      template: "src/index.html",
     }),
+    new MiniCssExtractPlugin(),
   ],
 };
